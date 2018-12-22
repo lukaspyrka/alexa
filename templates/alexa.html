@@ -8,7 +8,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='alexa.css')}}">
 </head>
 <body>
-    <h4></h4>
+    <main>
+        <div id="stan"></div>
+        <div id="result"></div>
+        <div id="confidence"></div>
+        <input type="button" value="Uruchom">
+    </main>
+    <script src="{{ url_for('static', filename='skills.js') }}"></script>
     <script src="{{ url_for('static', filename='alexa.js') }}"></script>
 </body>
 </html>

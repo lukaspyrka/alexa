@@ -1,21 +1,41 @@
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+//window.SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webiktSpeechRecognitionEvent
 
-//tworzymy stala
-const alexa = new SpeechRecognition();
+// Pobieramy elemetow DOM z htmla
+const BUTTON = document.querySelector('input');
+const RESULT = document.querySelector('#result');
+const CONFIDENCE = document.querySelector('#confidence');
+const STAN = document.querySelector('#stan');
 
-// dodaje event do okna przegladarki i spr czy go nie kliknelismy,
-// po kliknieciu uruchamia alexe i zmienia htmla strony na alexa start
-window.addEventListener('click', () => {
-    document.body.innerHTML = "Alexa start";
-    return alexa.start() ;
+// Create Speech Recognition
+const ALEXA = new SpeechRecognition();
+//ALEXA.maxAlternatives = 10;
+ALEXA.lang = 'pl-PL';
+
+// Ustawienie Event Handlerów Speech Recogniton
+ALEXA.addEventListener('start', function(){
+    STAN.innerHTML = 'Nasłuchuje';
 });
 
-alexa.addEventListener('result', (event)=>{
-    console.dir(event);
-    console.log(event.results[0][0].transcript)
+ALEXA.addEventListener('result', function(event){
+    const text = event.results[0][0].transcript;
+    RESULT.innerHTML = text;
+    CONFIDENCE.innerHTML = (event.results[0][0].confidence * 100) + '%';
+    execute(text)
 });
 
-alexa.addEventListener('end', ()=>{
-    document.body.innerHTML = "Alexa end";
-});
+ALEXA.addEventListener('end', function(){
+    STAN.innerHTML = 'Koniec nasłuchiwania'
+})
+
+// Event Handler Przycisku
+BUTTON.addEventListener('click',function(){
+    ALEXA.start();
+})
+
+
+
+
+
+
 
