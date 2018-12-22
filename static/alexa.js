@@ -21,7 +21,7 @@ ALEXA.addEventListener('result', function(event){
     const text = event.results[0][0].transcript;
     RESULT.innerHTML = text;
     CONFIDENCE.innerHTML = (event.results[0][0].confidence * 100) + '%';
-    execute(text)
+    execute(text.toLowerCase())
 });
 
 ALEXA.addEventListener('end', function(){
